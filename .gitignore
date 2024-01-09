@@ -1,0 +1,8 @@
+/build
+/.vscode
+/source/.vscode
+/source/*/.ipynb_checkpoints
+/source/*/conf.py
+/source/nb
+/source/filius
+/source/html

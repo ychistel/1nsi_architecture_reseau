@@ -1,0 +1,127 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{style2017}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks =false,
+    linkcolor=blue,
+   linkbordercolor = 1 0 0
+}
+\newcounter{numexo}
+\setcellgapes{1pt}
+
+\begin{document}
+
+
+\begin{NSI}
+{Activité}{Système d'exploitation linux}
+\end{NSI}
+
+\subsubsection*{-1-~Le système d'exploitation linux}
+En vous appuyant sur des documents internet, répondez aux questions suivantes.
+\begin{enumerate}
+\item Quelles sont les personnes à l'origine du système d'exploitation linux ? Comment a-t-il été créé ?
+
+\item Le système d'exploitation linux est-il un logiciel libre ?
+
+\item On dit que le système d'exploitation linux est distribué ? Qu'est-ce que cela signifie ? En donner plusieurs exemples.
+
+\end{enumerate}
+
+\subsubsection*{-2-~Organisation du système de fichiers}
+\begin{enumerate}
+\item Comment sont organisés les fichiers dans l'OS GNU/Linux ?
+
+\item Comment se nomme le dossier contenant tous les autres dossiers ? Quelle est la principale différence avec windows ?
+
+\item Quel est le dossier réservé aux utilisateurs ?
+
+
+\item Qu'est-ce que le dossier root ?
+
+
+\item Quel est le dossier contenant les fichiers de configuration système ?
+
+\item Que contiennent les dossiers bin, dev et usr ?
+\end{enumerate}
+
+
+\subsubsection*{-3-~Le terminal linux}
+
+Linux peut être utilisé sans aucune interface graphique. L'utilisation de linux se fait en lignes de commandes. Il existe une application qui permet de saisir des lignes de commandes. C'est le terminal.
+
+Faute de posséder un vrai système linux, on va expérimenter ce terminal sur le serveur jupyter notebook.
+
+\begin{enumerate}
+\item  Ouvrir une nouvelle fenêtre de "Terminal". Ce terminal est aussi appelé console. Noter l'invite de commande proposée, c'est à dire tous les caractères situés avant le curseur !
+\item Il existe de très nombreuses commandes. On va en découvrir quelques unes assez simples mais très utiles que vous allez tester.
+\begin{enumerate}
+\item Repérez-vous dans l'arborescence de fichiers avec la commande \textbf{pwd}. Notez-là.\vspace{2cm}
+
+
+\item Lister le contenu de votre répertoire avec la commande \textbf{ls}.\vspace{2cm} 
+
+\item Lister le contenu de votre répertoire avec la commande \textbf{ls -l}. Quelle différence a-t-on ?\vspace{2cm}
+
+
+
+
+
+\item Créer un nouveau répertoire \textbf{linux} avec la commande \textbf{mkdir} nom\_répertoire\_a\_créer.  Vérifier avec la commande \textbf{ls}.\vspace{2cm}
+
+\item Déplacez-vous dans ce répertoire \textbf{linux} avec la \textbf{cd} /chemin/vers/répertoire. Vérifier avec la commande \textbf{ls}. 
+
+Remonter d'un niveau en utilisant la même commande mais en ajoutant 2 points (..) pour le répertoire. \vspace{2cm}
+
+
+\end{enumerate}
+
+
+
+\item Vous allez devoir créer dans votre dossier utilisateur, l'arborescence suivante :
+
+\begin{center}
+\includegraphics[scale=1]{img/linux_dossier.png}
+\end{center}
+
+Les fichiers python et texte seront à créer en ligne de commande.
+
+Les fichiers images seront disponibles sur le serveur dans le répertoire \textbf{/tmp}.
+
+\begin{itemize}
+\item Pour créer un fichier, il existe un éditeur qui se lance avec la commande \textbf{nano}. On enregistre le fichier avec les touches \textbf{ctrl + o} et on quitte l'éditeur avec les touches \textbf{ctrl + x}.
+
+\item Pour copier un fichier d'un dossier à un autre, on utilise la commande \textbf{cp} en indiquant le répertoire source puis le répertoire de destination.
+
+\item Pour déplacer un fichier vers un autre dossier, on utilise la commande \textbf{mv}  en indiquant la source et la destination.
+\end{itemize}
+
+
+\end{enumerate}
+
+\subsubsection*{-4-~La gestion des permissions}
+
+Il y a trois catégories de permissions sur les dossiers et les fichiers dans linux.
+\begin{itemize}
+\item Les permissions accordées à l'utilisateur propriétaire : \textbf{u};
+\item Les permissions accordées au groupe d'utilisateurs qui ne sont pas propriétaires : \textbf{g};
+\item Les permissions accordées à tous les autres utilisateurs : \textbf{o}.
+\end{itemize}
+
+Pour chaque catégorie, on a trois permissions possibles:
+\begin{itemize}
+\item Le droit en lecture : \textbf{r}
+\item Le droit en écriture : \textbf{w}
+\item Le droit en exécution : \textbf{x}
+\end{itemize}
+
+Ces permissions sont affichées lorsqu'on utilise la commande \textbf{ls} avec l'option \textbf{l}.
+
+\begin{enumerate}
+\item Relever les permissions des fichiers python et des images.
+\item 
+\end{enumerate}
+
+\end{document}
+

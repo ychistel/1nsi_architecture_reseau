@@ -1,0 +1,148 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{style2017}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks =false,
+    linkcolor=blue,
+   linkbordercolor = 1 0 0
+}
+\newcounter{numexo}
+\setcellgapes{1pt}
+
+\begin{document}
+
+
+
+\begin{NSI}
+{Exercice}{Réseau et Internet}
+\end{NSI}
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo \hspace{1cm}\textit{Sur feuille}}
+On souhaite raccorder 1000 machines dans un même sous réseau IP. 
+\begin{enumerate}
+\item Donner le plus petit masque permettant de définir un tel sous réseau.
+\item Une machine A de ce réseau a pour adresse IP : 192.168.1.25. Déterminer l'adresse réseau de ce sous réseau.
+\item Une machine B a pour adresse IP : 192.168.3.220. Fait-elle partie du même sous réseau que la machine A ?
+\end{enumerate}
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo \hspace{1cm}\textit{Sur feuille}}
+On a 5 machines A, B, C, D et E qui ont pour adresses respectives :\medskip
+
+\begin{tabular}{p{6cm}p{6cm}}
+\textbf{A~}129.186.123.9 & \textbf{B}~129.186.128.7 \\
+\textbf{C}~129.186.126.8 & \textbf{D}~129.186.125.4 \\
+\textbf{E}~129.186.129.1
+\end{tabular}\medskip
+
+Le masque de sous réseau de ces machines est 255.255.248.0. Répartissez les machines par sous réseau.
+\bigskip
+\bigskip
+
+
+
+\noindent\fbox{
+\begin{minipage}{1\textwidth}\smallskip
+Le logiciel \textbf{filius} permet de créer virtuellement des réseaux avec des machines, serveurs, commutateurs et routeurs. Il est également possible de faire tourner des services (web, ftp,etc). Il est assez simple à prendre en main et s'utilise en deux temps :
+\begin{enumerate}
+\item En \textbf{mode construction} (clic sur le marteau) pour configurer les machines et le réseau;
+\item En \textbf{mode simulation} (clic sur la flèche verte) pour voir le fonctionnement d'un réseau.
+\end{enumerate}
+Ce logiciel permet aussi une analyse des trames sur le réseau.\smallskip
+
+Consultez la documentation se trouvant sur le site \href{https://github.com/KELLERStephane/KELLER-Stephane-Tests2maths/blob/master/6\%20-\%20Filius/Filius\%20guide\%20du\%20debutant.pdf}{\blue{Documentation filius}} pour vous aider.\smallskip
+\end{minipage}
+}
+
+
+%\addtocounter{numexo}{1}
+%\subsection*{\Large Exercice \thenumexo }
+%\begin{enumerate}
+%\item Créer un réseau nommé JULES contenant trois PC dont l'adresse réseau est 192.168.0.0/24. Les adresses IP des trois PC ont un dernier octet compris entre 10 et 20.
+%\item Au réseau JULES précédent, ajouter un serveur d'adresse IP : 192.168.0.1
+%\item Le serveur est-il accessible depuis les trois machines ? Vérifiez avec un ping.
+%\item Sur le serveur, ajoutez l'application "serveur générique" et démarrez le service.
+%\item Sur la machine A, ajoutez l'application "client générique" en configurant l'adresse IP du serveur puis se connecter.  Envoyer un message et vérifiez la bonne réception sur le serveur.
+%\item Faites un clic droit sur le serveur et afficher les échanges de données. 
+%\item Envoyez un nouveau message et observez la table d'échanges de données. 
+%
+%En sélectionnant une ligne de la table, le descriptif des différentes trames apparait.
+%
+%Examinez chacune d'elle attentivement, repérez les 4 couches et les différents protocoles.
+%\end{enumerate}
+
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo }
+\begin{enumerate}
+\item Créer un réseau nommé JULES contenant trois PC dont l'adresse réseau est 192.168.0.0/24. Les adresses IP des trois PC ont un dernier octet compris entre 10 et 20.
+\item Au réseau JULES, ajouter un serveur d'adresse IP : 192.168.0.1
+
+Vérifier que les PC communiquent avec le serveur.
+\item Ajouter sur le serveur l'application "Serveur web" et démarrer le service.
+\item Ajouter sur la machine A l'application "Navigateur web". 
+
+Lancez le navigateur et saisissez l'adresse IP du serveur web pour afficher la page web.
+\item Afficher la table d'échange des données. Pensez à vider les tables de temps à autre.
+
+\textbf{Remarque :} Vous pouvez réduire la vitesse de transmission des trames en diminuant le pourcentage (barre horizontale située à droite du bouton simulation).
+\end{enumerate}
+
+
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo }
+L'accès à un serveur web par son adresse IP est possible mais en général on utilise une url écrite de façon à pouvoir la mémoriser facilement. La transformation de l'url en adresse IP se fait avec un serveur DNS.
+\begin{enumerate}
+\item Ajouter un second serveur au réseau nommé "Serveur DNS" dont l'adresse IP est : 192.168.0.2 avec le même masque de sous réseau.
+\item Repasser en mode simulation et ajouter l'application "Serveur DNS" au serveur dédié.
+\item Lancez l'application "Serveur DNS" et élargissez la fenêtre pour bien voir les 3 onglets.
+\item Dans le premier onglet, ajouter le nom de domaine "www.serveur-nsi.fr," l'adresse IP du serveur web puis cliquer sur ajouter. Démarrer le service.
+\item Sur la machine A, vérifiez que la page web s'affiche en saisissant http://www.serveur-nsi.fr .
+\item Si vous avez rencontré un problème :
+\begin{enumerate}
+\item vérifiez que le service DNS est bien démarré;
+\item que le nom de domaine est correctement écrit;
+\item que l'adresse IP du serveur DNS est bien renseigné sur la machine A (et les autres aussi).
+\end{enumerate}
+\item Affichez la table d'échange de données de la machine A et des deux serveurs. Quel est le protocole utilisé par le serveur DNS ?
+\end{enumerate}
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo }
+\begin{enumerate}
+\item Créer un second réseau DUMONT composé de 2 portables, un serveur web et un commutateur selon les paramètres suivants:
+\begin{enumerate}
+\item adresse de réseau : 172.16.1.0
+\item masque de sous reseau : 255.255.255.0
+\item passerelle : 172.16.0.1
+\item serveur web : 172.16.0.5
+\end{enumerate}
+\item Ajouter un routeur pour relier les deux réseaux. Celui-ci aura 2 interfaces réseaux.
+\begin{enumerate}
+\item une interface vers le réseau JULES d'ip 192.168.0.254
+\item une interface vers le réseau DUMONT d'ip 172.16.0.254
+\end{enumerate}
+\item Le ping du portable de Dumont vers la machine A de Jules est-il un succès ? Pourquoi ?
+\item Pour communiquer entre 2 réseaux, il faut que le routeur soit identifié sur chaque machine du réseau. 
+
+Renseigner sur chaque machine des réseaux JULES et DUMONT la passerelle avec les adresses IP du routeur.
+\item Vérifier qu'un ping du portable vers la machine A est fonctionnel.
+\item Ajouter l'application "Navigateur web" sur le portable est afficher la page web http://www.serveur-nsi.fr. En cas d'erreur, vérifier que tout est bien renseigné sur le portable.
+\end{enumerate}
+
+%\addtocounter{numexo}{1}
+%\subsection*{\Large Exercice \thenumexo }
+%\begin{enumerate}
+%\item Sur le Rpi, récupérer sur l'ENT l'archive "socket.zip" et la décompresser dans le dossier Documents de votre home.
+%\item Ouvrir le fichier "serveur.py" sur le Rpi et compléter la variable MON\_IP avec l'adresse IP du Rpi.
+%\item Sur une machine windows de la classe, récupérer sur l'ENT l'archive "socket.zip" et la décompresser dans le dossier Documents ou le dossier tmp (à la racine de c).
+%\item Ouvrir le fichier "client.py" sur la machine windows et compléter la variable SERVEUR avec l'adresse IP du Rpi.
+%\item Exécuter les programmes pythons serveur.py sur le Rpi et client.py sur la machine windows. 
+%\item Les deux machines sont connectées et peuvent communiquer. Vous pouvez saisir des messages entourés par les guillemets !
+%\item Arrêter les programmes puis saisir l'adresse IP du Rpi d'un autre binôme pour communiquer.
+%\end{enumerate}
+\end{document}
+
