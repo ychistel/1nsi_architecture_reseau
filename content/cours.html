@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Architecture et protocoles réseau &#8212; 1 NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a6621bbe" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script src="../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/translations.js?v=d99ca74e"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/cours';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Exercices" href="exercice.html" />
+    <link rel="prev" title="Fonctionnement d’un réseau" href="activite.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Haut de page
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">1 NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="activite.html">Fonctionnement d’un réseau</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Architecture et protocoles réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercice.html">Exercices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp_reseau.html">TP : Simuler un réseau</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/cours.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Architecture et protocoles réseau</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-reseau">Interface réseau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reseau-local-lan">Réseau local (LAN)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#internet">Internet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-modele-internet">Le modèle internet</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="architecture-et-protocoles-reseau">
+<h1>Architecture et protocoles réseau<a class="headerlink" href="#architecture-et-protocoles-reseau" title="Link to this heading">#</a></h1>
+<section id="interface-reseau">
+<h2>Interface réseau<a class="headerlink" href="#interface-reseau" title="Link to this heading">#</a></h2>
+<p>Une <strong>interface réseau</strong> est le moyen pour une machine, un ordinateur, une tablette ou une imprimante, d’envoyer et
+recevoir des données vers un autre appareil lui aussi équipé d’une interface réseau. Cette interface peut être reliée
+physiquement par un câble électrique ou une fibre optique ou alors reliée par les ondes comme le wifi, 3G, 4G ou 5G.</p>
+<p>Une <strong>interface réseau</strong> possède une adresse matérielle ou adresse MAC (Material Access Control) qui est unique choisie par le constructeur.</p>
+<p>Elle se code sur 6 octets notés en hexadécimal, par exemple <code class="docutils literal notranslate"><span class="pre">01:23:45:67:89:ab</span></code>.</p>
+</section>
+<section id="reseau-local-lan">
+<h2>Réseau local (LAN)<a class="headerlink" href="#reseau-local-lan" title="Link to this heading">#</a></h2>
+<p>Un réseau local est un ensemble d’appareils reliés entre eux et pouvant s’envoyer et recevoir des données. Au delà de 2 machines, un <strong>switch</strong> est nécessaire pour relier les machines du réseau.</p>
+<figure class="align-center" id="id1">
+<img alt="lan_1.png" src="../_images/lan_1.png" />
+<figcaption>
+<p><span class="caption-text">Réseau local (LAN)</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="internet">
+<h2>Internet<a class="headerlink" href="#internet" title="Link to this heading">#</a></h2>
+<p>Le mot <strong>Internet</strong> est un mot valise qui signifie <strong>Interconnexion de réseaux</strong> (<strong>inter</strong>connected <strong>net</strong>work). Les différents réseaux sont reliés entre eux par des <strong>routeurs</strong>. Leur rôle est de
+transférer les données d’un réseau à un autre jusqu’à son destinataire final en suivant un protocole de communication.</p>
+<figure class="align-default" id="id2">
+<img alt="lan_1_et_2.png" src="../_images/lan_1_et_2.png" />
+<figcaption>
+<p><span class="caption-text">2 réseaux locaux reliés par un routeur</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p class="rubric">Protocole internet</p>
+<p>Deux machines qui se trouvent dans des réseaux différents peuvent communiquer grace au <strong>protocole internet</strong>:</p>
+<ol class="arabic">
+<li><p>Les différentes machines d’un réseau ont une <strong>adresse IP</strong> qui leur permet d’être identifiée sur leur réseau local. Cette adresse IP est unique dans son réseau.</p>
+<p>Il existe deux types d’adresses IP:</p>
+<ul class="simple">
+<li><p>l’adresse IPv4 codée sur 4 octets soit 32 bits noté en décimal séparés par des <strong>.</strong></p></li>
+<li><p>l’adresse IPv6 codée sur 16 octets soit 128 bits noté en hexadécimal séparés par <strong>:</strong></p></li>
+</ul>
+</li>
+<li><p>Chaque machine du réseau connait l’adresse IP du <strong>routeur</strong> appelé <strong>passerelle</strong>. Cette passerelle permet à chaque machine de pouvoir communiquer avec des machines se trouvant dans un autre réseau.</p></li>
+</ol>
+<figure class="align-default" id="id3">
+<img alt="Adressage IP" src="../_images/cours_lan_2_ip.png" />
+<figcaption>
+<p><span class="caption-text">Adressage IP dans 2 réseaux et leurs passerelles</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p class="rubric">Adresse et masque de réseau</p>
+<p>Un <strong>réseau</strong> est caractérisé par 2 adresses IP : l’<strong>adresse réseau</strong> et le <strong>masque réseau</strong>.</p>
+<p>Le masque réseau détermine le nombre de machines qui pourront se connecter au réseau. Il définit la plage
+d’adresses à utiliser dans le réseau, c’est à dire de la plus petite à la plus grande adresse IP à donner aux machines.</p>
+<p>Le masque réseau en IPv4 est une adresse de 32 bits constituée d’une suite de bits tous égaux à 1 suivis de bits tous égaux à 0. Il se note soit sur 4 octets:</p>
+<ul class="simple">
+<li><p>soit sous forme décimale avec des nombres compris entre 0 et 255;</p></li>
+<li><p>soit au format CIDR, c’est à dire un nombre placé après l’adresse réseau et qui donne la quantitié de bits égaux à 1.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Le nombre <span class="math notranslate nohighlight">\(n\)</span> de bits égaux à 0 permet de calculer le nombre d’adresses IP disponibles sur le réseau egal à <span class="math notranslate nohighlight">\(2^{n}\)</span>.</p>
+</div>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>Soit un réseau d’adresse <code class="docutils literal notranslate"><span class="pre">192.168.0.0</span></code> de masque réseau <code class="docutils literal notranslate"><span class="pre">255.255.255.0</span></code>.</p>
+<p>En binaire, le masque réseau est : <code class="docutils literal notranslate"><span class="pre">11111111</span> <span class="pre">11111111</span> <span class="pre">11111111</span> <span class="pre">00000000</span></code> ce qui signifie qu’il y a 24 bits égaux à 1.</p>
+<p>On peut donc noter l’adresse réseau et son masque par l’adresse <code class="docutils literal notranslate"><span class="pre">192.168.0.0/24</span></code>.</p>
+<p>Ce masque permet d’avoir sur le réseau <span class="math notranslate nohighlight">\(2^{8}=256\)</span> adresses IP distinctes.</p>
+</div>
+<p>Lorsqu’on connaît l’adresse IP d’une machine dans un réseau local et le masque réseau, il est possible d’obtenir l’adresse réseau en appliquant un <strong>ET</strong> binaire bit à bit sur les deux adresses.</p>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>Une machine dans un réseau local a pour adresse IP 192.168.15.24/28</p>
+<p>L’adresse <span class="math notranslate nohighlight">\(192.168.15.24\)</span> se note <code class="docutils literal notranslate"><span class="pre">11000000.10101000.00001111.00011000</span></code> en binaire et le masque réseau se note <code class="docutils literal notranslate"><span class="pre">1111</span> <span class="pre">1111.1111</span> <span class="pre">1111.1111</span> <span class="pre">1111.1111</span> <span class="pre">0000</span></code> (28 bits égaux à 1 suivis de 4 bits égaux à 0).</p>
+<p>On applique un ET binaire entre ces 2 adresses pour obtenir l’adresse réseau auquel appartient la machine.</p>
+<figure class="align-center">
+<img alt="et binaire" class="center" src="../_images/et_binaire.svg" /></figure>
+</div>
+</section>
+<section id="le-modele-internet">
+<h2>Le modèle internet<a class="headerlink" href="#le-modele-internet" title="Link to this heading">#</a></h2>
+<p>Le <strong>modèle internet</strong> définit la transmission de données entre 2 machines de 2 réseaux distincts. Ce modèle se décompose en 4 couches et 4 protocoles différents.</p>
+<p>A chaque changement de couche, les données à transmettre sont encapsulées dans différents paquets qui contiennent :</p>
+<ul class="simple">
+<li><p>les données à transmettre de la <strong>couche application</strong>;</p></li>
+<li><p>les numéros de port de la <strong>couche transport</strong></p></li>
+<li><p>les adresses IP de la machine source et de la machine destinataire de la <strong>couche internet</strong></p></li>
+<li><p>les adresses MAC des interfaces réseau de chaque machine de la <strong>couche liaison</strong></p></li>
+</ul>
+<p class="rubric">Couche application</p>
+<p>La couche application est la couche à l’origine des données à envoyer. Lorsqu’un utilisateur souhaite transmettre des données, il utilise un logiciel ou une application dédiée. Le protocole utilisé dépend de l’application.</p>
+<p class="rubric">Couche transport</p>
+<p>La couche transport assure que les données envoyées arrivent bien au destinataire sans perte et sans erreur.
+Les données sont découpées et envoyées en plusieurs <strong>paquets</strong>.</p>
+<p>Il existe différents protocoles de transport. Ce protocole transport utilise des <strong>ports</strong> qui sont 2 nombres entiers associés à l’application utilisée par la couche application. Un échange permanent se fait entre la source et le destinataire pour s’assurer que:</p>
+<ul class="simple">
+<li><p>une communication est établie entre la source et le destinataire;</p></li>
+<li><p>les paquets envoyés ne contiennent pas d’erreurs;</p></li>
+<li><p>les paquets envoyés ne sont pas perdus. Si cela se produit, les paquets perdus sont renvoyés à nouveau;</p></li>
+<li><p>les paquets envoyés sont rassemblés pour reconstituer les données initiales;</p></li>
+<li><p>la fin de communication est acceptée par la source et le destinataire.</p></li>
+</ul>
+<p class="rubric">Couche internet</p>
+<p>La couche internet assure la liaison entre toutes les machines utilisées pour le transport des données. Il y a la
+machine à la source de l’envoi et la machine destinataire. La couche internet a aussi connaissance des adresses IP
+des différents routeurs utilisés pour la transmission des données.</p>
+<p>Le protocole internet assure :</p>
+<ul class="simple">
+<li><p>la liaison entre l’adresse physique de l’interface réseau et l’adresse logique IP (v4 ou v6).</p></li>
+<li><p>la liaison entre l’adresse IP d’une machine et le routeur pour accéder à un autre réseau;</p></li>
+<li><p>la liaison entre tous les routeurs utilisés pour atteindre un autre réseau.</p></li>
+</ul>
+<p>Les paquets sont encapsulés par les adresses IP des différentes machines utilisées (source, routeurs et destinataire)</p>
+<p class="rubric">Couche liaison</p>
+<p>La couche liaison est la parie physique de la transmission. Les données à envoyer sont tranformées en signaux électriques, lumineux ou en ondes suivant l’interface réseau utilisée. Le protocole utilisé ajoute alors aux données les adresses physiques (MAC) des interfaces réseaux des machines source et destinataire.</p>
+<div class="admonition-encapsulation-des-donnees admonition">
+<p class="admonition-title">Encapsulation des données</p>
+<p>Les données à envoyer sont complétées par des informations à chaque fois qu’elles traversent une couche. On parle
+d’encapsulation des données. Lorsque les données arrivent au destinataire, elles sont désencapsulées et transmises aux différentes couches (dans l’ordre inverse) jusqu’à l’application.</p>
+<p>On représente les 4 couches de la transmission des données par le diagramme suivant:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/encapsulation.svg"><img alt="../_images/encapsulation.svg" src="../_images/encapsulation.svg" width="360" /></a>
+</figure>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="activite.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Fonctionnement d’un réseau</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="exercice.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Exercices</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-reseau">Interface réseau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reseau-local-lan">Réseau local (LAN)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#internet">Internet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-modele-internet">Le modèle internet</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022, Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
