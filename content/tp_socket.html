@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TP : Simuler un réseau &#8212; 1 NSI</title>
+    <title>TP : Créer un réseau en Python &#8212; 1 NSI</title>
   
   
   
@@ -43,11 +43,10 @@
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script src="../_static/translations.js?v=d99ca74e"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/tp_reseau';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/tp_socket';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
-    <link rel="next" title="TP : Créer un réseau en Python" href="tp_socket.html" />
-    <link rel="prev" title="Exercices" href="exercice.html" />
+    <link rel="prev" title="TP : Simuler un réseau" href="tp_reseau.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="fr"/>
   </head>
@@ -158,8 +157,8 @@
 <li class="toctree-l1"><a class="reference internal" href="activite.html">Fonctionnement d’un réseau</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cours.html">Architecture et protocoles réseau</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercice.html">Exercices</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">TP : Simuler un réseau</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tp_socket.html">TP : Créer un réseau en Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp_reseau.html">TP : Simuler un réseau</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">TP : Créer un réseau en Python</a></li>
 </ul>
 
     </div>
@@ -214,7 +213,7 @@
       
       
       
-      <li><a href="../_sources/content/tp_reseau.rst" target="_blank"
+      <li><a href="../_sources/content/tp_socket.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Télécharger le fichier source"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -298,7 +297,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TP : Simuler un réseau</h1>
+    <h1>TP : Créer un réseau en Python</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -308,9 +307,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-reseau-local">Un réseau local</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolution-de-nom-de-domaine">Résolution de nom de domaine</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routage-entre-2-reseaux">Routage entre 2 réseaux</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#client-et-serveur-sur-la-meme-machine">Client et serveur sur la même machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#client-et-serveur-sur-2-machines-differentes">Client et Serveur sur 2 machines différentes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deux-clients-et-un-serveur">Deux clients et un serveur</a></li>
 </ul>
             </nav>
         </div>
@@ -322,67 +321,90 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tp-simuler-un-reseau">
-<h1>TP : Simuler un réseau<a class="headerlink" href="#tp-simuler-un-reseau" title="Link to this heading">#</a></h1>
-<section id="un-reseau-local">
-<h2>Un réseau local<a class="headerlink" href="#un-reseau-local" title="Link to this heading">#</a></h2>
-<p>Cet exercice simule un réseau avec le logiciel <em>filius</em>.</p>
-<ol class="arabic">
-<li><p>Créer un réseau nommé JULES contenant trois PC dont l’adresse réseau est <code class="docutils literal notranslate"><span class="pre">192.168.0.0/24</span></code>. Les adresses IP des trois
-PC ont leurs derniers octets égaux à 21, 22 et 23.</p></li>
-<li><p>Au réseau JULES, ajouter un serveur d’adresse IP : <code class="docutils literal notranslate"><span class="pre">192.168.0.1</span></code>. Vérifier que les PC communiquent avec le serveur.</p></li>
-<li><p>Ajouter sur le serveur l’application « Serveur web » et démarrer le service.</p></li>
-<li><p>Ajouter sur la machine A l’application « Navigateur web ».</p>
-<p>Lancez le navigateur et saisissez l’adresse IP du serveur web pour afficher la page web.</p>
-</li>
-</ol>
-</section>
-<section id="resolution-de-nom-de-domaine">
-<h2>Résolution de nom de domaine<a class="headerlink" href="#resolution-de-nom-de-domaine" title="Link to this heading">#</a></h2>
-<p>L’accès à un serveur web par son adresse IP est possible mais en général on utilise une url écrite de façon à pouvoir
-la mémoriser facilement. La transformation de l’url en adresse IP se fait avec un serveur DNS.</p>
+  <section id="tp-creer-un-reseau-en-python">
+<h1>TP : Créer un réseau en Python<a class="headerlink" href="#tp-creer-un-reseau-en-python" title="Link to this heading">#</a></h1>
+<p>La connexion réseau suit le modèle <strong>client - serveur</strong> dont le principe est :</p>
+<ul class="simple">
+<li><p>Un serveur écoute les connexions entrantes, il est en attente d’une connexion émise par un client;</p></li>
+<li><p>Un client se connecte au serveur et envoie des données;</p></li>
+<li><p>Le serveur reçoit les données et envoie une réponse;</p></li>
+<li><p>En fin de communication, la connexion est close.</p></li>
+</ul>
+<section id="client-et-serveur-sur-la-meme-machine">
+<h2>Client et serveur sur la même machine<a class="headerlink" href="#client-et-serveur-sur-la-meme-machine" title="Link to this heading">#</a></h2>
+<p>On donne ci-dessous les 2 fichiers python <code class="docutils literal notranslate"><span class="pre">serveur.py</span></code> et <code class="docutils literal notranslate"><span class="pre">client.py</span></code> qui sont à télécharger sur votre machine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Le fichier python du serveur <a class="reference download internal" download="" href="../_downloads/d85d2c3d2067c36b3f926b2cb2adb2e0/serveur.py"><code class="xref download docutils literal notranslate"><span class="pre">serveur.py</span></code></a></p></li>
+<li><p>Le fichier python du client <a class="reference download internal" download="" href="../_downloads/ca38697c947a96c8e5428bc31dc139c8/client.py"><code class="xref download docutils literal notranslate"><span class="pre">client.py</span></code></a></p></li>
+</ul>
+</div>
 <ol class="arabic simple">
-<li><p>Ajouter un second serveur au réseau nommé « Serveur DNS » dont l’adresse IP est : 192.168.0.2 avec le même masque de réseau.</p></li>
-<li><p>Repasser en mode simulation et ajouter l’application « Serveur DNS » au serveur dédié.</p></li>
-<li><p>Lancez l’application « Serveur DNS » et élargissez la fenêtre pour bien voir les 3 onglets.</p></li>
-<li><p>Dans le premier onglet, ajouter le nom de domaine « www.dumont-nsi.fr, » l’adresse IP du serveur web puis cliquer sur
-ajouter. Démarrer le service.</p></li>
-<li><p>Sur la machine A, vérifiez que la page web s’affiche en saisissant <code class="docutils literal notranslate"><span class="pre">http://www.dumont-nsi.fr</span></code> .</p></li>
-<li><p>Si vous avez rencontré un problème :</p>
-<ul class="simple">
-<li><p>vérifiez que le service DNS est bien démarré;</p></li>
-<li><p>que le nom de domaine est correctement écrit;</p></li>
-<li><p>que l’adresse IP du serveur DNS est bien renseigné sur la machine A (et les autres aussi).</p></li>
-</ul>
-</li>
-<li><p>Affichez la table d’échange de données de la machine A et des deux serveurs. Quel est le protocole utilisé par le
-serveur DNS ?</p></li>
+<li><p>Ouvrir l’application Thonny puis ouvrir les 2 fichiers téléchargés.</p></li>
+<li><p>Quelle est l’adresse IP du serveur ? du client ? A quoi correspond-elle ?</p></li>
+<li><p>Placez-vous dans le fichier <code class="docutils literal notranslate"><span class="pre">serveur</span></code>, puis exécutez ce programme en tapant sur les touches CTRL + T.</p></li>
+<li><p>Placez-vous sur le fichier <code class="docutils literal notranslate"><span class="pre">client</span></code>, puis exécutez le programme en tapant sur CTRL + T.</p></li>
+<li><p>Quel est l’échange de données entre le client et le serveur ? Quels sont les ports utilisés par chaque machine ?</p></li>
 </ol>
 </section>
-<section id="routage-entre-2-reseaux">
-<h2>Routage entre 2 réseaux<a class="headerlink" href="#routage-entre-2-reseaux" title="Link to this heading">#</a></h2>
+<section id="client-et-serveur-sur-2-machines-differentes">
+<h2>Client et Serveur sur 2 machines différentes<a class="headerlink" href="#client-et-serveur-sur-2-machines-differentes" title="Link to this heading">#</a></h2>
+<p>La connexion précédente s’est faite sur la même machine, ce qui est rarement le cas dans une communication réseau. Ici, l’objectif est de vous connecter au serveur placé sur la machine de votre voisin.</p>
 <ol class="arabic">
-<li><p>Créer un second réseau DUMONT composé de 2 portables, un serveur web et un switch selon les paramètres suivants:</p>
+<li><p>Ouvrir une fenêtre de commande sur votre machine et saisir la commande <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>. Relever l’adresse IP de votre machine et la communiquer à votre voisin.</p></li>
+<li><p>Modifier le fichier <code class="docutils literal notranslate"><span class="pre">client</span></code> en modifiant l’adresse IP du serveur à connecter.</p></li>
+<li><p>Assurez-vous que le serveur est démarré puis exécutez votre client. Vérifiez que la communication est fonctionnelle entre le client et le serveur.</p></li>
+<li><p>On va modifier les données à envoyer au serveur. Sur votre client, remplacer l’instruction :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Hello, serveur !&quot;</span>
+</pre></div>
+</div>
+<p>par l’instruction de saisie :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;saisir votre message&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Exécutez le client et vérifiez que le message saisi est reçu par le serveur.</p>
+</li>
+<li><p>Maintenant on met en place une communication ping-pong entre le client et le serveur. Le client envoie un message et le serveur répond avec le même message.</p>
+<p>On commence par modifier le fichier <code class="docutils literal notranslate"><span class="pre">client.py</span></code></p>
+<ol class="loweralpha">
+<li><p>Créer une variable booléenne <code class="docutils literal notranslate"><span class="pre">connexion</span></code> qui a pour valeur <code class="docutils literal notranslate"><span class="pre">True</span></code> juste après la variable <code class="docutils literal notranslate"><span class="pre">port_serveur</span></code>.</p></li>
+<li><p>Placer le code d’échange de données dans une boucle <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">connexion</span></code> comme le montre la figure ci-dessous.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/boucle_while_client.png"><img alt="../_images/boucle_while_client.png" src="../_images/boucle_while_client.png" style="width: 520px;" /></a>
+</figure>
+</li>
+<li><p>Ajouter dans la boucle <code class="docutils literal notranslate"><span class="pre">while</span></code> un test sur le message qui met fin à la communication. Par exemple, si le message envoyé par le client est le mot « fin », la connexion s’arrête.</p></li>
+<li><p>Faire de même avec le fichier <code class="docutils literal notranslate"><span class="pre">serveur</span></code> en insérant la boucle <code class="docutils literal notranslate"><span class="pre">while</span></code> comme sur la figure suivante:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/boucle_while_serveur.png"><img alt="../_images/boucle_while_serveur.png" src="../_images/boucle_while_serveur.png" style="width: 520px;" /></a>
+</figure>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="deux-clients-et-un-serveur">
+<h2>Deux clients et un serveur<a class="headerlink" href="#deux-clients-et-un-serveur" title="Link to this heading">#</a></h2>
+<p>Pour faire communiquer 2 clients, on peut utiliser le modèle client-serveur.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/client_serveur.svg"><img alt="../_images/client_serveur.svg" src="../_images/client_serveur.svg" width="520" /></a>
+</figure>
 <ul class="simple">
-<li><p>adresse de réseau : 172.16.1.0</p></li>
-<li><p>masque de sous reseau : 255.255.255.0</p></li>
-<li><p>serveur web : 172.16.0.5</p></li>
+<li><p>Un serveur est démarré sur une machine;</p></li>
+<li><p>Les 2 clients se connectent au serveur;</p></li>
+<li><p>Les clients communiquent en envoyant les messages au serveur qui se charge de les renvoyer aux autres clients.</p></li>
 </ul>
-</li>
-<li><p>Ajouter un routeur pour relier les deux réseaux. Celui-ci aura 2 interfaces réseaux.</p>
-<ul class="simple">
-<li><p>une interface vers le réseau JULES d’ip 192.168.0.254</p></li>
-<li><p>une interface vers le réseau DUMONT d’ip 172.16.0.254</p></li>
-</ul>
-</li>
-<li><p>Le ping du portable de Dumont vers la machine A de Jules est-il un succès ? Pourquoi ?</p></li>
-<li><p>Pour communiquer entre 2 réseaux, il faut que le routeur soit identifié en tant que passerelle sur chaque machine du
-réseau.</p>
-<p>Renseigner sur chaque machine des réseaux JULES et DUMONT la passerelle avec les adresses IP du routeur.</p>
-</li>
-<li><p>Vérifier qu’un ping du portable du réseau DUMONT vers une machine du réseau JULES est fonctionnel.</p></li>
-<li><p>Ajouter l’application « Navigateur web » sur le portable est afficher la page web <a class="reference external" href="http://www.serveur-nsi.fr">http://www.serveur-nsi.fr</a>. En cas
-d’erreur, vérifier que tout est bien renseigné sur le portable.</p></li>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Le programme <code class="docutils literal notranslate"><span class="pre">serveur</span></code> est donné et n’a pas besoin d’être modifié. Il peut être téléchargé: <a class="reference download internal" download="" href="../_downloads/8d60253850a757b247860599571de5d4/serveur_5.py"><code class="xref download docutils literal notranslate"><span class="pre">serveur</span></code></a>.</p>
+<p>Le programme client de la partie précédente peut être repris sans changement.</p>
+</div>
+<ol class="arabic simple">
+<li><p>Installer le programme <code class="docutils literal notranslate"><span class="pre">serveur</span></code> sur une machine et démarrer le.</p></li>
+<li><p>Installer un premier client sur la même machine que le serveur et installer un second client sur une seconde machine.</p></li>
+<li><p>Exécuter les programmes clients et contrôler qu’ils sont bien connectés au serveur.</p></li>
+<li><p>Échanger des messages entre les deux clients et vérifier que les messages passent par le serveur.</p></li>
 </ol>
 </section>
 </section>
@@ -399,22 +421,13 @@ d’erreur, vérifier que tout est bien renseigné sur le portable.</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="exercice.html"
+       href="tp_reseau.html"
        title="page précédente">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">précédent</p>
-        <p class="prev-next-title">Exercices</p>
+        <p class="prev-next-title">TP : Simuler un réseau</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="tp_socket.html"
-       title="page suivante">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">suivant</p>
-        <p class="prev-next-title">TP : Créer un réseau en Python</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -432,9 +445,9 @@ d’erreur, vérifier que tout est bien renseigné sur le portable.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-reseau-local">Un réseau local</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolution-de-nom-de-domaine">Résolution de nom de domaine</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routage-entre-2-reseaux">Routage entre 2 réseaux</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#client-et-serveur-sur-la-meme-machine">Client et serveur sur la même machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#client-et-serveur-sur-2-machines-differentes">Client et Serveur sur 2 machines différentes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deux-clients-et-un-serveur">Deux clients et un serveur</a></li>
 </ul>
   </nav></div>
 
