@@ -1,22 +1,24 @@
-import socket
+# coding=utf8
+from socket import *
 
-# paramètres du client
-host = '127.0.0.1'
-port = 12345
+SERVEUR = 'xxx.xxx.xxx.xxx'
+PORT = 50000
+liaison = socket(AF_INET, SOCK_STREAM)
 
-# création d'un objet socket
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+    liaison.connect((SERVEUR, PORT))
+    message=""
+except error:
+    print("La connexion a échoué.")
+    message="FIN"
 
-# connexion au serveur
-client_socket.connect((host,port))
+# serveur et service
+while message.upper() != "FIN" :
+    message = liaison.recv(1024).decode("utf8")
+    print("serveur >", message)
+    if message.upper() != "FIN" :
+        message = input("moi > ")
+        liaison.send(message.encode("utf8"))
 
-# envoi de donnees au serveur
-message = "Hello, serveur !"
-client_socket.sendall(message.encode('utf-8'))
-
-# reception de la reponse du serveur
-reponse = client_socket.recv(1024)
-print(f"Serveur > {reponse.decode('utf-8')}")
-
-# fermeture du socket
-client_socket.close()
+print("Connexion terminée." )
+liaison.close()

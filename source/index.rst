@@ -26,3 +26,4 @@ Architecture réseau - Protocoles
    content/cours.rst
    content/exercice.rst
    content/tp_reseau.rst
+   content/tp_socket.rst

@@ -4,7 +4,7 @@ import socket
 # ------------------------------
 
 # paramètres du serveur
-ip_serveur = '127.0.0.1'
+ip_serveur = '192.168.1.73'
 port_serveur = 12345
 connexion = True
 
@@ -24,17 +24,16 @@ print(f"le client utilise l'adresse {ip_client} et le port {port_client}")
 print("--"*30)
 
 while connexion:
-        
+    
     # Envoi de donnees du client au serveur
     # -------------------------------------
-    message = input("Moi : ")
+    message = input("Client : ")
     client_socket.send(message.encode('utf-8'))
-    print(message)
-    
+
     # reception de la reponse du serveur
     # ----------------------------------
     reponse = client_socket.recv(1024)
-    print(f"Autre : \n{reponse.decode('utf-8')} ")
+    print(f"Serveur : {reponse.decode('utf-8')} ")
     
     if message == 'fin':
         connexion = False

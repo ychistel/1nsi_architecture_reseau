@@ -4,8 +4,9 @@ import socket
 # ---------------------------------
 
 # Paramètres du serveur
-ip_serveur = '127.0.0.1'
+ip_serveur = '192.168.1.73'
 port_serveur = 12345
+connexion = True
 
 # création d'un objet socket
 serveur_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -37,16 +38,20 @@ print(f"Connexion avec client d'adresse IP: {ip_client}:{port_client}")
 # Echange de données entre client et serveur
 # ------------------------------------------
 
-# reception des données depuis le client
-donnees = client_socket.recv(1024)
+while connexion:
+    # reception des données depuis le client
+    donnees = client_socket.recv(1024)
 
-# affichage des données reçues
-print(f"Client a écrit : {donnees.decode('utf-8')}")
+    # affichage des données reçues
+    print(f"Client : {donnees.decode('utf-8')}")
 
-# envoi d'une réponse du serveur au client
-reponse = f"OK, message reçu depuis l'adresse {ip_client}:{port_client}"
-client_socket.send(reponse.encode('utf-8'))
+    # envoi d'une réponse du serveur au client
+    reponse = f"{donnees.decode('utf-8')}"
+    client_socket.send(reponse.encode('utf-8'))
 
+    if reponse == 'fin':
+        connexion = False
+        
 
 # Fin de connexion entre le serveur et le client
 # ----------------------------------------------

@@ -1,31 +1,36 @@
-import socket
+# coding=utf8
+from socket import *
 
-# Paramètres du serveur
-host_serveur = '127.0.0.1'
-port_serveur = 12345
+### Mise en place du service ########
+MON_IP='xxx.xxx.xxx.xxx'
+PORT = 50000
+service = socket(AF_INET, SOCK_STREAM)
+try:
+    service.bind((MON_IP , PORT))
+    tourne = True
+except error :
+    print("Impossible de démarrer le service.")
+    tourne = False
 
-# création d'un objet socket
-serveur_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+while tourne :
+    print("Serveur prêt, en attente de requètes ...")
+    service.listen(1)
+    ### Mise en place d?une connexion ########
+    connexion, adresse = service.accept()
+    print("Client connecté. : ",adresse[0])
+    ### Dialogue avec le client ########
+    message = ""
+    while message.upper() != "FIN" :
+        message = input("moi > ")
+        connexion.send(message.encode("utf8"))
+        if message.upper() != "FIN" :
+            message = connexion.recv(1024).decode("utf8")
+            print("client > ", message)
+    connexion.close()
 
-# liaison du socket avec une adresse et un port
-serveur_socket.bind((host_serveur, port_serveur))
+    ch = input("<R>ecommencer <T>erminer ? ")
+    ch = ch[0].upper()
+    if ch =='T':
+        tourne = False
 
-# Attente de connexions entrantes (maximum 5 connexions en attente)
-serveur_socket.listen(5)
-
-# acceptation d'une connexion entrante
-client_socket, client_adresse = serveur_socket.accept()
-ip_client,port_client = client_adresse
-print(f"Connexion établie avec {ip_client}")
-
-# reception des données depuis le client
-donnees_recues = client_socket.recv(1024)
-print(f"Client > {donnees_recues.decode('utf-8')}")
-
-#  envoi d'une réponse au client
-reponse = "Le client a pour IP " + ip_client + " et le port utilisé est " + str(port_client) + " !"
-client_socket.sendall(reponse.encode('utf-8'))
-
-# fermeture des sockets
-client_socket.close()
-serveur_socket.close()
+service.close()
